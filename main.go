@@ -135,16 +135,38 @@ func predictARIMA(data []float64, p, d, q, predictionLength int) []float64 {
 
 	// Lakukan inverse AR jika p > 0
 	if p > 0 {
-		for i := p; i < len(residual)+p; i++ {
-			prediction := float64(0)
-			for j := 0; j < p; j++ {
-				prediction += arCoefficients[j] * residual[i-j-1]
-			}
-			residual[i-p] = prediction
-		}
+		residual = inverseARIMA(residual, p, d, arCoefficients)
 	}
 
 	return residual[len(residual)-predictionLength:]
+}
+
+// Fungsi untuk melakukan inverse ARIMA
+func inverseARIMA(residual []float64, p, d int, arCoefficients []float64) []float64 {
+	n := len(residual)
+	data := make([]float64, n)
+
+	copy(data, residual)
+
+	// Lakukan inverse differencing jika d > 0
+	if d > 0 {
+		for i := n - 1; i >= d; i-- {
+			data[i] = data[i] + data[i-d]
+		}
+	}
+
+	// Lakukan inverse AR jika p > 0
+	if p > 0 {
+		for i := n - 1; i >= p; i-- {
+			prediction := float64(0)
+			for j := 0; j < p; j++ {
+				prediction += arCoefficients[j] * data[i-j-1]
+			}
+			data[i-p] = data[i-p] + prediction
+		}
+	}
+
+	return data
 }
 
 func main() {
@@ -175,8 +197,8 @@ func main() {
 	}
 
 	// Tampilkan hasil prediksi
-	fmt.Println("Hasil Prediksi:")
+	fmt.Println("Hasil Prediksi (Bentuk Asli):")
 	for i, pred := range predictions {
-		fmt.Printf("Minggu %d: %.2f\n", len(data)+i+1, pred)
+		fmt.Printf("Minggu %d: %.2f\n", len(data)+i+1, pred+data[len(data)-1])
 	}
 }
