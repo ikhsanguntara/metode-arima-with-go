@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 // Fungsi untuk menghitung rata-rata dari sebuah slice float64
@@ -199,6 +200,6 @@ func main() {
 	// Tampilkan hasil prediksi
 	fmt.Println("Hasil Prediksi (Bentuk Asli):")
 	for i, pred := range predictions {
-		fmt.Printf("Minggu %d: %.2f\n", len(data)+i+1, pred+data[len(data)-1])
+		fmt.Printf("Minggu %d: %.f\n", len(data)+i+1, math.Round(pred+data[len(data)-1]))
 	}
 }
