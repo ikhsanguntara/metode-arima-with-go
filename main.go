@@ -170,6 +170,19 @@ func inverseARIMA(residual []float64, p, d int, arCoefficients []float64) []floa
 	return data
 }
 
+func calculateMAE(actual, predicted []float64) float64 {
+	if len(actual) != len(predicted) {
+		panic("Length of actual and predicted slices should be the same.")
+	}
+
+	sum := 0.0
+	for i := 0; i < len(actual); i++ {
+		sum += math.Abs(actual[i] - predicted[i])
+	}
+
+	return sum / float64(len(actual))
+}
+
 func main() {
 	// Data contoh (gantilah data ini dengan data Anda)
 	data := []float64{
@@ -202,4 +215,9 @@ func main() {
 	for i, pred := range predictions {
 		fmt.Printf("Minggu %d: %.f\n", len(data)+i+1, math.Round(pred+data[len(data)-1]))
 	}
+
+	// Hitung MAE
+	mae := calculateMAE(data[len(data)-predictionLength:], predictions)
+	fmt.Printf("Mean Absolute Error (MAE): %.2f\n", mae)
+
 }
