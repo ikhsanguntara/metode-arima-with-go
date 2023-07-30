@@ -35,17 +35,18 @@ func calculateMAE(actualData, predictedData []float64) float64 {
 }
 
 func main() {
-	data := []float64{14, 45, 71, 76, 89, 28, 48, 57, 46, 60, 45, 65, 110, 72, 69, 57, 48, 103, 40, 51, 33, 56, 56, 67, 76, 22, 39, 86, 54, 32, 91, 68, 72, 70, 52, 75, 91, 39, 49, 60, 81, 59, 43, 75, 69, 71, 46, 50, 55, 51, 73, 80, 73}
+	data := []float64{66, 113, 116, 135, 90, 129, 79, 118, 98, 111, 153, 123, 140, 144, 140, 145, 73, 84, 131, 137, 136, 101, 135, 106, 102, 128, 138, 104, 116, 94, 118, 126, 144, 138, 109, 136, 134, 121, 129, 147, 113, 102, 104, 70, 138, 78, 86, 96, 136, 89, 124, 131, 93, 108, 151, 116, 111}
+
 	alpha := 0.3
 
 	// Hitung peramalan dengan metode Exponential Smoothing
 	smoothedData := exponentialSmoothing(data, alpha)
 
-	// Prediksi 7 minggu ke depan
-	predictionData := make([]float64, 7)
+	// Prediksi 12 minggu ke depan
+	predictionData := make([]float64, 12)
 	predictionData[0] = alpha*data[len(data)-1] + (1-alpha)*smoothedData[len(smoothedData)-1]
 
-	for i := 1; i < 7; i++ {
+	for i := 1; i < 12; i++ {
 		predictionData[i] = alpha*data[len(data)-1] + (1-alpha)*predictionData[i-1]
 	}
 
