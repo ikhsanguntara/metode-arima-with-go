@@ -186,19 +186,19 @@ func calculateMAE(actual, predicted []float64) float64 {
 func main() {
 	// Data contoh (gantilah data ini dengan data Anda) (data product perminggu )
 
-// 	SELECT DATE_FORMAT(DATE_SUB(a.created_at, INTERVAL WEEKDAY(a.created_at) DAY), '%Y-%m-%d') AS start_of_week,
-// 	DATE_FORMAT(DATE_ADD(a.created_at, INTERVAL 6 - WEEKDAY(a.created_at) DAY), '%Y-%m-%d') AS end_of_week,
-// 	SUM(b.qty) AS total_qty
-// FROM transactions a
-// LEFT JOIN transaction_lines b ON a.id = b.transaction_id
-// WHERE b.name = 'Pupuk Kompos (5KG)'
-// AND a.created_at >= '2022-07-01 01:43:26.419'
-// AND a.created_at < NOW()  -- Batas tanggal akhir diganti dengan NOW() untuk data hingga hari ini
-// GROUP BY start_of_week, end_of_week
-// ORDER BY start_of_week DESC;
+	// 	SELECT DATE_FORMAT(DATE_SUB(a.created_at, INTERVAL WEEKDAY(a.created_at) DAY), '%Y-%m-%d') AS start_of_week,
+	// 	DATE_FORMAT(DATE_ADD(a.created_at, INTERVAL 6 - WEEKDAY(a.created_at) DAY), '%Y-%m-%d') AS end_of_week,
+	// 	SUM(b.qty) AS total_qty
+	// FROM transactions a
+	// LEFT JOIN transaction_lines b ON a.id = b.transaction_id
+	// WHERE b.name = 'Pupuk Kompos (5KG)'
+	// AND a.created_at >= '2022-07-01 01:43:26.419'
+	// AND a.created_at < NOW()  -- Batas tanggal akhir diganti dengan NOW() untuk data hingga hari ini
+	// GROUP BY start_of_week, end_of_week
+	// ORDER BY start_of_week ASC;
 
 	data := []float64{
-		111, 116, 151, 108, 93, 131, 124, 89, 136, 96, 86, 78, 138, 70, 104, 102, 113, 147, 129, 121, 134, 136, 109, 138, 144, 126, 118, 94, 116, 104, 138, 128, 102, 106, 135, 101, 136, 137, 131, 84, 73, 145, 140, 144, 140, 123, 153, 111, 98, 118, 79, 129, 90, 135, 116, 113, 66,
+		66, 113, 116, 135, 90, 129, 79, 118, 98, 111, 153, 123, 140, 144, 140, 145, 73, 84, 131, 137, 136, 101, 135, 106, 102, 128, 138, 104, 116, 94, 118, 126, 144, 138, 109, 136, 134, 121, 129, 147, 113, 102, 104, 70, 138, 78, 86, 96, 136, 89, 124, 131, 93, 108, 151, 116, 111,
 	}
 
 	// Parameter ARIMA (gantilah parameter ini sesuai kebutuhan)
