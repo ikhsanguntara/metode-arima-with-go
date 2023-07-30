@@ -184,13 +184,21 @@ func calculateMAE(actual, predicted []float64) float64 {
 }
 
 func main() {
-	// Data contoh (gantilah data ini dengan data Anda)
+	// Data contoh (gantilah data ini dengan data Anda) (data product perminggu )
+
+// 	SELECT DATE_FORMAT(DATE_SUB(a.created_at, INTERVAL WEEKDAY(a.created_at) DAY), '%Y-%m-%d') AS start_of_week,
+// 	DATE_FORMAT(DATE_ADD(a.created_at, INTERVAL 6 - WEEKDAY(a.created_at) DAY), '%Y-%m-%d') AS end_of_week,
+// 	SUM(b.qty) AS total_qty
+// FROM transactions a
+// LEFT JOIN transaction_lines b ON a.id = b.transaction_id
+// WHERE b.name = 'Pupuk Kompos (5KG)'
+// AND a.created_at >= '2022-07-01 01:43:26.419'
+// AND a.created_at < NOW()  -- Batas tanggal akhir diganti dengan NOW() untuk data hingga hari ini
+// GROUP BY start_of_week, end_of_week
+// ORDER BY start_of_week DESC;
+
 	data := []float64{
-		14, 45, 71, 76, 89, 28, 48, 57, 46, 60, 45,
-		65, 110, 72, 69, 57, 48, 103, 40, 51, 33, 56,
-		56, 67, 76, 22, 39, 86, 54, 32, 91, 68, 72,
-		70, 52, 75, 91, 39, 49, 60, 81, 59, 43, 75,
-		69, 71, 46, 50, 55, 51, 73, 80, 73,
+		111, 116, 151, 108, 93, 131, 124, 89, 136, 96, 86, 78, 138, 70, 104, 102, 113, 147, 129, 121, 134, 136, 109, 138, 144, 126, 118, 94, 116, 104, 138, 128, 102, 106, 135, 101, 136, 137, 131, 84, 73, 145, 140, 144, 140, 123, 153, 111, 98, 118, 79, 129, 90, 135, 116, 113, 66,
 	}
 
 	// Parameter ARIMA (gantilah parameter ini sesuai kebutuhan)
@@ -198,7 +206,7 @@ func main() {
 	d := 0 // Derajat differencing (I)
 	q := 1 // Order moving average (MA)
 
-	// Panjang prediksi (dalam minggu)
+	// Panjang prediksi (dalam minggu) (tolong di bikin jadi params )
 	predictionLength := 12 // 12 minggu
 
 	// Lakukan prediksi
