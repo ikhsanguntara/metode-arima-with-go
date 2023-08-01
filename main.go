@@ -183,6 +183,21 @@ func calculateMAE(actual, predicted []float64) float64 {
 	return sum / float64(len(actual))
 }
 
+// Fungsi untuk menghitung Mean Squared Error (MSE)
+func calculateMSE(actual, predicted []float64) float64 {
+	if len(actual) != len(predicted) {
+		panic("Length of actual and predicted slices should be the same.")
+	}
+
+	sum := 0.0
+	for i := 0; i < len(actual); i++ {
+		diff := actual[i] - predicted[i]
+		sum += diff * diff
+	}
+
+	return sum / float64(len(actual))
+}
+
 func main() {
 	// Data contoh (gantilah data ini dengan data Anda) (data product perminggu )
 
@@ -198,7 +213,64 @@ func main() {
 	// ORDER BY start_of_week ASC;
 
 	data := []float64{
-		66, 113, 116, 135, 90, 129, 79, 118, 98, 111, 153, 123, 140, 144, 140, 145, 73, 84, 131, 137, 136, 101, 135, 106, 102, 128, 138, 104, 116, 94, 118, 126, 144, 138, 109, 136, 134, 121, 129, 147, 113, 102, 104, 70, 138, 78, 86, 96, 136, 89, 124, 131, 93, 108, 151, 116, 111,
+		4,
+		122,
+		113,
+		116,
+		135,
+		90,
+		129,
+		79,
+		118,
+		98,
+		111,
+		153,
+		123,
+		140,
+		144,
+		140,
+		145,
+		73,
+		84,
+		131,
+		137,
+		136,
+		101,
+		135,
+		106,
+		102,
+		128,
+		138,
+		104,
+		116,
+		94,
+		118,
+		126,
+		144,
+		138,
+		109,
+		136,
+		134,
+		121,
+		129,
+		147,
+		113,
+		102,
+		104,
+		70,
+		138,
+		78,
+		86,
+		96,
+		136,
+		89,
+		124,
+		131,
+		93,
+		108,
+		151,
+		116,
+		111,
 	}
 
 	// Parameter ARIMA (gantilah parameter ini sesuai kebutuhan)
@@ -227,5 +299,9 @@ func main() {
 	// Hitung MAE
 	mae := calculateMAE(data[len(data)-predictionLength:], predictions)
 	fmt.Printf("Mean Absolute Error (MAE): %.2f\n", mae)
+
+	// Hitung MSE
+	mse := calculateMSE(data[len(data)-predictionLength:], predictions)
+	fmt.Printf("Mean Squared Error (MSE): %.2f\n", mse)
 
 }
