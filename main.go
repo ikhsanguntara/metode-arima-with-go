@@ -213,7 +213,7 @@ func main() {
 	// ORDER BY start_of_week ASC;
 
 	data := []float64{
-		4,
+
 		122,
 		113,
 		116,
