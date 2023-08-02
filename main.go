@@ -39,6 +39,23 @@ func calculateMAEAndMSE(actualData, predictedData []float64) (float64, float64) 
 	return mae, mse
 }
 
+func calculateMAPE(actualData, predictedData []float64) float64 {
+	if len(actualData) != len(predictedData) {
+		panic("Panjang data aktual dan data prediksi harus sama")
+	}
+
+	n := float64(len(actualData))
+	totalAbsolutePercentageError := 0.0
+
+	for i := 0; i < len(actualData); i++ {
+		percentageError := math.Abs((actualData[i] - predictedData[i]) / actualData[i])
+		totalAbsolutePercentageError += percentageError
+	}
+
+	mape := (totalAbsolutePercentageError / n) * 100.0
+	return mape
+}
+
 func main() {
 	// Data contoh (gantilah data ini dengan data Anda) (data product perminggu )
 
@@ -54,7 +71,6 @@ func main() {
 	// ORDER BY start_of_week ASC;
 
 	data := []float64{
-		4,
 		122,
 		113,
 		116,
@@ -140,8 +156,11 @@ func main() {
 	fmt.Println("\nPrediksi 12 Minggu Ke Depan:")
 	fmt.Println(predictionData)
 
-	// Menghitung MAE dan MSE untuk hasil peramalan
+	// Menghitung MAE, MSE, dan MAPE untuk hasil peramalan
 	mae, mse := calculateMAEAndMSE(data, smoothedData)
+	mape := calculateMAPE(data, smoothedData)
+
 	fmt.Println("\nMean Absolute Error (MAE) untuk hasil peramalan:", mae)
 	fmt.Println("Mean Squared Error (MSE) untuk hasil peramalan:", mse)
+	fmt.Println("Mean Absolute Percentage Error (MAPE) untuk hasil peramalan:", mape)
 }
