@@ -198,6 +198,22 @@ func calculateMSE(actual, predicted []float64) float64 {
 	return sum / float64(len(actual))
 }
 
+// Fungsi untuk menghitung Mean Absolute Percentage Error (MAPE)
+func calculateMAPE(actual, predicted []float64) float64 {
+	if len(actual) != len(predicted) {
+		panic("Length of actual and predicted slices should be the same.")
+	}
+
+	sumPercentageError := 0.0
+	for i := 0; i < len(actual); i++ {
+		percentageError := math.Abs((actual[i] - predicted[i]) / actual[i])
+		sumPercentageError += percentageError
+	}
+
+	mape := (sumPercentageError / float64(len(actual))) * 100.0
+	return mape
+}
+
 func main() {
 	// Data contoh (gantilah data ini dengan data Anda) (data product perminggu )
 
@@ -303,5 +319,9 @@ func main() {
 	// Hitung MSE
 	mse := calculateMSE(data[len(data)-predictionLength:], predictions)
 	fmt.Printf("Mean Squared Error (MSE): %.2f\n", mse)
+
+	// Hitung MAPE
+	mape := calculateMAPE(data[len(data)-predictionLength:], predictions)
+	fmt.Printf("Mean Absolute Percentage Error (MAPE): %.2f%%\n", mape)
 
 }
